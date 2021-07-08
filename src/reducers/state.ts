@@ -274,69 +274,69 @@ const initialState = {
     Clothes: {
       skirt: {
         translate: 'юбка',
-        logo: 'https://english-for-kids.netlify.app/static/media/skirt.b0ee2c91.jpg',
+        logo: 'https://poshivm.ru/blog/img/items/i-16.jpg',
       },
       pants: {
         translate: 'брюки',
-        logo: 'https://english-for-kids.netlify.app/static/media/pants.197f1069.jpg',
+        logo: 'https://images.ru.prom.st/791403737_w500_h500_adidas-bryuki-sportivnye.jpg',
       },
       blouse: {
         translate: 'блузка',
-        logo: 'https://english-for-kids.netlify.app/static/media/blouse.37a6d8fa.jpg',
+        logo: 'https://i.etsystatic.com/19861253/d/il/bfe168/1932269032/il_340x270.1932269032_bhxs.jpg?version=1',
       },
       dress: {
         translate: 'платье',
-        logo: 'https://english-for-kids.netlify.app/static/media/dress.264b02bf.jpg',
+        logo: 'https://prformula.ru/wp-content/uploads/2019/05/3-1-300x200.jpg',
       },
       boot: {
         translate: 'ботинок',
-        logo: 'https://english-for-kids.netlify.app/static/media/boot.1a1ae11a.jpg',
+        logo: 'https://images.ru.prom.st/675422978_w200_h200_hummer-botinki-rabochie.jpg',
       },
       shirt: {
         translate: 'рубашка',
-        logo: 'https://english-for-kids.netlify.app/static/media/shirt.3bed1473.jpg',
+        logo: 'https://mirnadivane.ru/wp-content/uploads/2017/05/effekt-ot-otbelivateley-s-hlorom-zametney-vsego-no-300x200.jpg',
       },
       coat: {
         translate: 'пальто',
-        logo: 'https://english-for-kids.netlify.app/static/media/coat.8017b6ca.jpg',
+        logo: 'http://mywishlist.ru/pic/i/wish/300x300/008/450/708.jpeg',
       },
       shoe: {
         translate: 'туфли',
-        logo: 'https://english-for-kids.netlify.app/static/media/shoe.5522fbfd.jpg',
+        logo: 'https://kzn-ritual.ru/upload/iblock/a53/a53ec334b89baa9efc4af2af1f2a7abd.jpg',
       },
     },
     Emotion: {
       sad: {
         translate: 'грустный',
-        logo: 'https://english-for-kids.netlify.app/static/media/sad.5942f979.jpg',
+        logo: 'http://vsknebo.ru/wp-content/uploads/2018/03/3774469-300x200.jpg',
       },
       angry: {
         translate: 'сердитый',
-        logo: 'https://english-for-kids.netlify.app/static/media/angry.66b1074a.jpg',
+        logo: 'https://arulchandrana.files.wordpress.com/2011/10/jangan-buat-dia-keras-dan-marah-hatinya.jpg',
       },
       happy: {
         translate: 'счастливый',
-        logo: 'https://english-for-kids.netlify.app/static/media/happy.996126dd.jpg',
+        logo: 'http://russiantourism.ru/netcat_files/2343_8023.jpg',
       },
       tired: {
         translate: 'уставший',
-        logo: 'https://english-for-kids.netlify.app/static/media/tired.a169662a.jpg',
+        logo: 'https://ideasqueinspiran.com/wp-content/uploads/2016/04/sindrome-de-burnout-en-el-docente-300x200.jpg',
       },
       surprised: {
         translate: 'удивленный',
-        logo: 'https://english-for-kids.netlify.app/static/media/surprised.0667ed30.jpg',
+        logo: 'https://wikimedspravka.ru/wp-content/public_images2/26e34439168bd4edaf34375aafb04d6f-300x200.jpg',
       },
       scared: {
         translate: 'испуганный',
-        logo: 'https://english-for-kids.netlify.app/static/media/scared.e2747b49.jpg',
+        logo: 'http://gracieraleigh.com/wp-content/uploads/2015/08/bigstock-Young-Angry-boy-yelling-84661142-300x200.jpg',
       },
       smile: {
         translate: 'улыбка',
-        logo: 'https://english-for-kids.netlify.app/static/media/smile.f55cb470.jpg',
+        logo: 'http://www.americaru.com/i/n/2015-09-291443536083.jpg',
       },
       laugh: {
         translate: 'смех',
-        logo: 'https://english-for-kids.netlify.app/static/media/laugh.8bbca0b9.jpg',
+        logo: 'https://miro.medium.com/max/300/0*pSxV30GVEVbJGXHU.jpg',
       },
     },
     'Difficult Words': {},

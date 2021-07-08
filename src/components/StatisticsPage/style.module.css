@@ -43,6 +43,8 @@
 
 .statistics {
     width: 100%;
+    min-width: 783px;
+    overflow-x: scroll;
     border-radius: 3px;
     margin-top: 30px;
     margin-bottom: 20px;
