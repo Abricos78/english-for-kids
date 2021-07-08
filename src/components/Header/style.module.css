@@ -1,0 +1,217 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-top: 40px;
+    margin: auto;
+    font-family: 'Roboto';
+    max-width: 1350px;
+}
+
+.button {
+    width: 120px;
+    height: 40px;
+    border-radius: 5px;
+    box-shadow: inset 0 -1px #fff, inset 0 1px 1px rgb(0 0 0 / 5%);
+    background-image: linear-gradient(180deg,#eee,#fff 25px);
+    cursor: pointer;
+    padding: 3px;
+    position: relative;
+}
+
+.input {
+    position: absolute;
+    top: 0;
+    opacity: 0;
+}
+
+.input:checked ~ .buttonBack {
+    background: linear-gradient(40deg,#ffd86f,#fc6262);
+}
+
+.buttonBack {
+    display: block;
+    border-radius: 5px;
+    position: relative;
+    font-size: 18px;
+    line-height: 40px;
+    text-transform: uppercase;
+    height: inherit;
+    transition: .15s ease-out;
+    background: linear-gradient(40deg,#00bf82,#0099ae);
+    box-shadow: inset 0 1px 2px rgb(0 0 0 / 15%), inset 0 0 3px rgb(0 0 0 / 20%);
+}
+
+.buttonBack::after,
+.buttonBack::before {
+    position: absolute;
+    transition: inherit;
+    content: attr(data-game);
+    color: #fff;
+    top: 0;
+    text-shadow: 0 1px rgb(0 0 0 / 20%);
+}
+
+.input:checked ~ .buttonBack::after {
+    opacity: 0;
+}
+
+.input:checked ~ .buttonBack::before {
+    opacity: 1;
+}
+
+.buttonBack::after {
+    opacity: 1;
+    left: 15px;
+}
+
+.buttonBack::before {
+    opacity: 0;
+    right: 15px;
+}
+
+.slider {
+    margin-right: auto;
+    width: 33px;
+    height: 33px;
+    border-radius: 5px;
+    background-color: #fff;
+    background-image: linear-gradient(180deg,#fff 40%,#f0f0f0);
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    transition: .3s;
+}
+
+.input:checked ~ .slider {
+    right: 86px;
+}
+
+.slider::before {
+    content: '';
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #f9f9f9;
+    background-image: linear-gradient(180deg,#eee,#fff);
+    box-shadow: inset 0 1px rgb(0 0 0 / 2%);
+}
+
+.burger {
+    cursor: pointer;
+    z-index: 3;
+}
+
+.burger > div {
+    width: 33px;
+    height: 4px;
+    margin-bottom: 5px;
+    background-color: #cdcdcd;
+    border-radius: 3px;
+    transition: transform .5s cubic-bezier(.77,.2,.05,1),background .5s cubic-bezier(.77,.2,.05,1),opacity .55s ease,-webkit-transform .5s cubic-bezier(.77,.2,.05,1);
+    opacity: 1;
+    position: relative;
+    z-index: 3;
+    transform-origin: 4px 0;
+}
+
+.show > .first {
+    transform: rotate(45deg) translate(-2px, -1px);
+}
+
+.show > .second {
+    opacity: 0;
+}
+
+.burger > .third {
+    transform-origin: 0 100%;
+}
+
+.show > .third {
+    transform: rotate(-45deg) translateY(-1px);
+}
+
+.menu {
+    display: flex;
+    box-sizing: border-box;
+    cursor: default;
+    flex-direction: column;
+    padding: 125px 50px 50px;
+    min-height: 100vh;
+    width: 380px;
+    position: absolute;
+    z-index: 2;
+    margin: 0;
+    top: 0;
+    left: 0;
+    background: linear-gradient(40deg,#00bf82,#0099ae);
+    transform: translateX(-380px);
+    transform-origin: 0 0;
+    transition: transform .5s cubic-bezier(.77,.2,.05,1),-webkit-transform .5s cubic-bezier(.77,.2,.05,1)
+}
+
+.menu.show {
+    transform: translateX(0);
+}
+
+.menu > a {
+    padding: 10px 0;
+    font-size: 22px;
+    color: #fff;
+    text-decoration: none;
+    text-align: left;
+    margin: 0 0 0 60px;
+    text-transform: capitalize;
+}
+
+.menu > .active {
+    text-decoration: underline;
+}
+
+@media (max-width: 1380px) {
+    .header {
+        max-width: 1000px;
+    }
+    .menu {
+        width: 320px;
+        padding: 125px 40px 40px;
+        transform: translateX(-320px);
+    }
+    .menu > a {
+        margin: 0 0 0 25px;
+    }
+}
+
+@media (max-width: 1047px) {
+    .header {
+        max-width: 650px;
+    }
+    .menu {
+        width: 280px;
+        padding: 125px 35px 35px;
+        transform: translateX(-280px);
+    }
+    .menu > a {
+        margin: 0 0 0 15px;
+    }
+}
+
+@media (max-width: 697px) {
+    .header {
+        max-width: 300px;
+    }
+    .menu {
+        width: 250px;
+        padding: 125px 25px 25px;
+        transform: translateX(-250px);
+    }
+    .menu > a {
+        margin: 0 0 0 15px;
+    }
+}

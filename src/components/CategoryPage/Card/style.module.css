@@ -1,0 +1,98 @@
+.card {
+    transform-style: preserve-3d;
+    width: 300px;
+    height: 250px;
+    position: relative;
+    z-index: 1;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 40%);
+    transition: box-shadow .25s linear,transform .7s,-webkit-transform .7s;
+}
+
+.card:hover {
+    box-shadow: -1px 5px 15px 0 rgb(0 0 0 / 50%);
+}
+
+.front,
+.back {
+    transition: .3s;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: flex;
+    backface-visibility: hidden;
+    border-radius: 5px;
+}
+
+.back {
+    transform: rotateY(180deg);
+}
+
+.cardHeader {
+    text-align: center;
+    padding: 0 15px;
+    font-size: 24px;
+    width: 100%;
+    margin-top: 200px;
+    background: #fff;
+    line-height: 45px;
+    color: #212529;
+    pointer-events: none;
+    border-radius: 0 0 5px 5px;
+}
+
+.rotate {
+    backface-visibility: hidden;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    background-image: url('https://english-for-kids.netlify.app/static/media/rotate.229f42dc.png');
+    background-size: 32px;
+    background-repeat: no-repeat;
+    background-position: center 16px;
+    transition: .3s;
+    bottom: 5px;
+    right: 5px;
+    filter: grayscale(1);
+}
+
+.rotate:hover {
+    cursor: pointer;
+    filter: grayscale(0);
+}
+
+.inactive {
+    opacity: .5;
+}
+
+.stars {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    max-width: 1350px;
+    height: 40px;
+    margin: 20px auto;
+    overflow-x: hidden;
+    line-height: 36px;
+    font-size: 36px;
+}
+
+.success,
+.error {
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    background-size: 40px 40px;
+}
+
+.success {
+    background-image: url('https://english-for-kids.netlify.app/static/media/star-win.43e453a6.svg');
+}
+.error {
+    background-image: url('https://english-for-kids.netlify.app/static/media/star.dc1ba888.svg');
+}

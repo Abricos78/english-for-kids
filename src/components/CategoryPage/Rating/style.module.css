@@ -1,0 +1,27 @@
+.stars {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    max-width: 1350px;
+    height: 40px;
+    margin: 20px auto;
+    overflow-x: hidden;
+    line-height: 36px;
+    font-size: 36px;
+}
+
+.success,
+.error {
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    background-size: 40px 40px;
+}
+
+.success {
+    background-image: url('https://english-for-kids.netlify.app/static/media/star-win.43e453a6.svg');
+}
+.error {
+    background-image: url('https://english-for-kids.netlify.app/static/media/star.dc1ba888.svg');
+}
