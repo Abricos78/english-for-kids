@@ -371,7 +371,14 @@ export const data = (state = initialState, { type, payload }: Record<string, str
       return { ...state, start: true };
     case FINISH_GAME:
       return {
-        ...state, start: false, finish: true, rating: [], allMistakes: 0, currentWord: '', windowAfterGame: false,
+        ...state,
+        start: false,
+        finish: true,
+        rating: [],
+        allMistakes: 0,
+        currentWord: '',
+        windowAfterGame: false,
+        randowWordOrder: [],
       };
     case SET_RANDOM_WORD_ORDER:
       return { ...state, randomWordOrder: payload };
@@ -434,6 +441,7 @@ export const startGame = () => (dispatch: Dispatch) => {
 };
 
 export const finishGame = () => (dispatch: Dispatch) => {
+  console.log('finish');
   dispatch({
     type: FINISH_GAME,
   });

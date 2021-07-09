@@ -7,7 +7,8 @@ export function sound(word: string, event: React.MouseEvent<Element, MouseEvent>
     audio.play();
   }
   if (event !== undefined) {
-    if ((event.target as HTMLElement).getAttribute('data-type') !== 'rotate') {
+    if ((event.target as HTMLElement).getAttribute('data-type') !== 'rotate'
+    && (event.target as HTMLElement).getAttribute('data-type') !== 'back') {
       const audio = new Audio(`${window.location.origin}/english-for-kids/audio/${word}.mp3`);
       audio.play();
     }

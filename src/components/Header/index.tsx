@@ -44,7 +44,7 @@ const Header = ({
         {categories.map(({ category }) => (
           <Link
             key={category}
-            onClick={() => { setCategory(category); finishGame(); create(allWords); }}
+            onClick={() => { setCategory(category); finish(); create(allWords); }}
             to={`/category/${category}`}
             className={currentCategory === category ? style.active : ''}
           >
@@ -52,7 +52,7 @@ const Header = ({
           </Link>
         ))}
         <Link
-          onClick={() => { setCategory('statistics'); finishGame(); create(allWords); }}
+          onClick={() => { setCategory('statistics'); finish(); create(allWords); }}
           to="/statistics"
           className={currentCategory === 'statistics' ? style.active : ''}
         >

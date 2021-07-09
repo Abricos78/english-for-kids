@@ -101,12 +101,12 @@ export const resetWords = () => (dispatch: Dispatch) => {
   arr.forEach((item) => {
     const keys = Object.keys(words[item]);
     keys.forEach((word) => {
-      switch (item) {
+      switch (word) {
         case 'clicks':
         case 'correct':
         case 'wrong':
         case 'percent':
-          words[word][item] = 0;
+          words[item][word] = 0;
           break;
         default:
           break;

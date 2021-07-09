@@ -57,7 +57,7 @@ const Card = ({
       <div className={style.front} style={background}>
         <div style={{ display: !game ? 'block' : 'none' }} className={style.cardHeader}>{word}</div>
       </div>
-      <div className={style.back} style={background}>
+      <div data-type="back" className={style.back} style={background}>
         <div style={{ display: !game ? 'block' : 'none' }} className={style.cardHeader}>{translation}</div>
       </div>
       <div
