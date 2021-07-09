@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { StateInterface } from '../../../reducers/state';
 import { getAllMistakes } from '../../../selectors';
+import { sound } from '../../../utills';
 import style from './style.module.css';
 
 interface MyInterface {
@@ -9,16 +10,31 @@ interface MyInterface {
 }
 
 const WindowAfterGame = ({ allMistakes }: MyInterface) => {
+  const src = allMistakes === 0
+    ? 'https://github.com/rolling-scopes-school/tasks/blob/master/tasks/rslang/english-for.kids.data/img/success.jpg?raw=true'
+    : 'https://github.com/rolling-scopes-school/tasks/blob/master/tasks/rslang/english-for.kids.data/img/failure.jpg?raw=true';
+  useEffect(() => {
+    if (allMistakes === 0) {
+      sound('WIN');
+    } else {
+      sound('LOSE');
+    }
+  });
   if (!allMistakes) {
     return (
       <div className={style.div}>
         <h1>Win</h1>
+        <img
+          src={src}
+          alt="win"
+        />
       </div>
     );
   }
   return (
     <div className={style.div}>
       <h1>{allMistakes === 1 ? `${allMistakes} mistake` : `${allMistakes} mistakes`}</h1>
+      <img src={src} alt="" />
     </div>
   );
 };
