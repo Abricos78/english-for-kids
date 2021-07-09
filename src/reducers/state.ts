@@ -298,7 +298,7 @@ const initialState = {
       },
       coat: {
         translate: 'пальто',
-        logo: 'http://mywishlist.ru/pic/i/wish/300x300/008/450/708.jpeg',
+        logo: 'https://foxi.ro/upload/articles/91/big-paltoane-dama--1.jpg',
       },
       shoe: {
         translate: 'туфли',
@@ -308,7 +308,7 @@ const initialState = {
     Emotion: {
       sad: {
         translate: 'грустный',
-        logo: 'http://vsknebo.ru/wp-content/uploads/2018/03/3774469-300x200.jpg',
+        logo: 'https://c.wallhere.com/photos/b7/44/puppy_dog_face_sad_sight-645298.jpg!s',
       },
       angry: {
         translate: 'сердитый',
@@ -316,7 +316,7 @@ const initialState = {
       },
       happy: {
         translate: 'счастливый',
-        logo: 'http://russiantourism.ru/netcat_files/2343_8023.jpg',
+        logo: 'http://www.studiodiogene.org/wp-content/uploads/2014/11/3061008251_28e8f88a58_b-300x200.jpg',
       },
       tired: {
         translate: 'уставший',
@@ -328,11 +328,11 @@ const initialState = {
       },
       scared: {
         translate: 'испуганный',
-        logo: 'http://gracieraleigh.com/wp-content/uploads/2015/08/bigstock-Young-Angry-boy-yelling-84661142-300x200.jpg',
+        logo: 'https://bioliferezonans.com/wp-content/uploads/2019/12/panik-atak-300x200.jpg',
       },
       smile: {
         translate: 'улыбка',
-        logo: 'http://www.americaru.com/i/n/2015-09-291443536083.jpg',
+        logo: 'https://iamhuman.ru/images/upload_images/1245517/01-logo_c91ad.jpg',
       },
       laugh: {
         translate: 'смех',
