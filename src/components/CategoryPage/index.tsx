@@ -1,30 +1,36 @@
-import React, { useEffect } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import {
-  finishGame, openWindowAfterGame, selectCategory, setRandomWordOrder, startGame, StateInterface,
+  finishGame, openWindowAfterGame, setRandomWordOrder, startGame, StateInterface,
 } from '../../reducers/state';
 import {
-  getCurrentWord, getStart, getStatusGame, getWindowAfterGame, getWords,
+  getCurrentCategory,
+  getCurrentWord, getStart, getStatusGame, getWindowAfterGame, getWords as getWordsSelector,
 } from '../../selectors';
-import { createRandowWordOrder, sound } from '../../utills';
+import { createRandowWordOrder, soundPlay } from '../../utills/index';
 import style from './style.module.css';
 import Card from './Card';
 import Rating from './Rating';
 import ModalAfterGame from './ModalAfterGame';
+import { Categories, selectCategory } from '../../reducers/categories';
+import { Word } from '../../api/interface';
+import { Words } from '../../reducers/words';
 
-interface MyInterface {
-    words: Record<string, Record<string, string>>,
+export interface CategoriesInterface {
+    words: Word[],
     game: boolean,
     start: boolean,
     startBtn: Function,
     currentWord: string,
+    currentCategory: string,
     setWordOrder: Function,
     finish: Function,
     windowAfterGame: boolean,
     openWinModal: Function,
-    setCategory: Function
+    setCategory: Function,
+    getWordsD: Function
 }
 
 export type wordInterface = [string, {[key: string]: string}]
@@ -35,54 +41,56 @@ const CategoryPage = ({
   start,
   startBtn,
   currentWord, setWordOrder, finish, windowAfterGame, openWinModal, setCategory,
-}: MyInterface) => {
+  currentCategory,
+}: CategoriesInterface) => {
   useEffect(() => {
-    if (currentWord === undefined) {
+    if (currentWord === 'END') {
       setTimeout(openWinModal, 1000);
       setTimeout(() => { finish(); setCategory(''); }, 3000);
     }
   });
-  if (words) {
-    const englishWords = Object.entries(words);
-    const order = createRandowWordOrder(englishWords);
-    if (windowAfterGame) {
-      return <ModalAfterGame />;
-    }
-    return (
-      <div>
-        <Rating />
-        <div className={style.cards}>
-          {englishWords.map((word: wordInterface) => {
-            const englishWord = {
-              word: word[0],
-              logo: word[1].logo,
-              translation: word[1].translate,
-            };
-            return <Card key={englishWord.word} {...englishWord} />;
-          })}
-        </div>
-        {game ? (
-          <div className={style.btns}>
-            <button
-              aria-hidden="true"
-              type="button"
-              onClick={start ? () => sound(currentWord)
-                : () => { startBtn(); setWordOrder(order); sound(order[0]); }}
-              className={start ? `${style.startBtn} ${style.repeat}` : style.startBtn}
-            >
-              start game
-            </button>
-          </div>
-        ) : ''}
-      </div>
-
-    );
+  console.log(words);
+  if (currentCategory === '') {
+    return <Redirect from="category/" to="/" />;
   }
-  return <Redirect to="/" />;
+
+  const order = createRandowWordOrder(words);
+  if (windowAfterGame) {
+    return <ModalAfterGame />;
+  }
+  return (
+    <div>
+      <Rating />
+      <div className={style.cards}>
+        {words.map((word: Word) => <Card key={word.name} {...word} />)}
+      </div>
+      {game ? (
+        <div className={style.btns}>
+          <button
+            aria-hidden="true"
+            type="button"
+            onClick={start ? () => soundPlay(currentWord)
+              : () => { startBtn(); setWordOrder(order); soundPlay(order[0]); }}
+            className={start ? `${style.startBtn} ${style.repeat}` : style.startBtn}
+          >
+            start game
+          </button>
+        </div>
+      ) : ''}
+    </div>
+
+  );
 };
 
-const mapStateToProps = ({ data }: Record<string, StateInterface>) => ({
-  words: getWords(data),
+interface Props {
+  data: StateInterface,
+  categories: Categories,
+  words: Words
+}
+
+const mapStateToProps = ({ data, categories, words }: Props) => ({
+  currentCategory: getCurrentCategory(categories),
+  words: getWordsSelector(words),
   game: getStatusGame(data),
   start: getStart(data),
   currentWord: getCurrentWord(data),
@@ -96,4 +104,4 @@ const mapDispatchToProps = {
   openWinModal: openWindowAfterGame,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryPage);
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryPage as FunctionComponent);

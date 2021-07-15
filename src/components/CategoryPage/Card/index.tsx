@@ -1,43 +1,50 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
+import { Word } from '../../../api/interface';
 import {
   changeRating, nextWord, setMistake, StateInterface,
 } from '../../../reducers/state';
-import { updateStatistics } from '../../../reducers/statistics';
-import { getCurrentWord, getStart, getStatusGame } from '../../../selectors';
-import { sound } from '../../../utills';
+import { StatisticsInterface, updateStatistics } from '../../../reducers/statistics';
+import {
+  getCurrentWord, getStart, getStatusGame, getWords,
+} from '../../../selectors';
+import { soundPlay } from '../../../utills/index';
 import style from './style.module.css';
 
 interface MyInterface {
     translation: string,
     logo: string,
-    word: string,
+    name: string,
     game: boolean,
     start: boolean,
     currentWord: string,
     setNextWord: Function,
     setNewRating: Function,
     addMistake: Function,
-    updateStatistic: Function
+    updateStatistic: Function,
+    words: Word[],
+    sound: string | undefined
 }
 
 const Card = ({
   translation,
-  logo, word, game, start, currentWord, setNextWord, setNewRating, addMistake, updateStatistic,
+  sound,
+  logo, name, game, start, currentWord, setNextWord, setNewRating, addMistake, updateStatistic,
+  words,
 }: MyInterface) => {
   function checkWord(event: React.MouseEvent<Element, MouseEvent>) {
     if (!(event.target as HTMLElement).classList.contains(style.inactive)) {
-      if (currentWord === word) {
+      if (currentWord === name) {
         setNextWord();
-        updateStatistic('correct', currentWord);
+        updateStatistic(words, 'correct', currentWord);
         setNewRating('success');
         (event.target as HTMLElement).classList.add(style.inactive);
-        sound('SUCCESS');
+        soundPlay('SUCCESS');
       } else {
-        updateStatistic('wrong', currentWord);
+        updateStatistic(words, 'wrong', currentWord);
         setNewRating('error');
         addMistake();
-        sound('ERROR');
+        soundPlay('ERROR');
       }
     }
   }
@@ -51,11 +58,19 @@ const Card = ({
     <div
       aria-hidden="true"
       onClick={game ? (e: React.MouseEvent<Element, MouseEvent>) => startListener(e)
-        : (e: React.MouseEvent<Element, MouseEvent>) => { sound(word, e); updateStatistic('clicks', word); }}
+        : (e: React.MouseEvent<Element, MouseEvent>) => {
+          console.log(sound);
+          if (sound) {
+            soundPlay(sound, e);
+          } else {
+            soundPlay(name, e);
+          }
+          updateStatistic(words, 'clicks', name);
+        }}
       className={style.card}
     >
       <div className={style.front} style={background}>
-        <div style={{ display: !game ? 'block' : 'none' }} className={style.cardHeader}>{word}</div>
+        <div style={{ display: !game ? 'block' : 'none' }} className={style.cardHeader}>{name}</div>
       </div>
       <div data-type="back" className={style.back} style={background}>
         <div style={{ display: !game ? 'block' : 'none' }} className={style.cardHeader}>{translation}</div>
@@ -80,10 +95,16 @@ const Card = ({
   );
 };
 
-const mapStateToProps = ({ data }: Record<string, StateInterface>) => ({
+interface Props {
+  data: StateInterface,
+  statistics: StatisticsInterface
+}
+
+const mapStateToProps = ({ data, statistics }: Props) => ({
   game: getStatusGame(data),
   start: getStart(data),
   currentWord: getCurrentWord(data),
+  words: getWords(statistics),
 });
 const mapDispatchToProps = {
   setNextWord: nextWord,
@@ -92,4 +113,4 @@ const mapDispatchToProps = {
   updateStatistic: updateStatistics,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Card);
+export default connect(mapStateToProps, mapDispatchToProps)(Card as FunctionComponent);

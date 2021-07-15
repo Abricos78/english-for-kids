@@ -1,0 +1,54 @@
+.words {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(361px, 361px));
+    justify-content: space-around;
+    padding: 0px 15px 40px 15px;
+    gap: 40px 50px;
+    margin: auto;
+    margin-top: 40px;
+    max-width: 1440px;
+}
+
+h2 {
+    font-weight: normal;
+    font-size: 22px;
+    text-transform: capitalize;
+    margin-left: 70px;
+    margin-top: 30px;
+}
+
+.category {
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.create {
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
+    border-radius: 5px;
+    height: 458px;
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+
+}
+
+.plus {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    opacity: 0.6;
+    display: flex;
+    margin: auto;
+    margin-top: 60px;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #000000;
+    font-size: 150px;
+}
+
+.field {
+    margin: 43px auto 0 auto;
+    font-size: 36px;
+    font-weight: bold;
+}

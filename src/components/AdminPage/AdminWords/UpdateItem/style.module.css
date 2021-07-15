@@ -1,0 +1,109 @@
+.create {
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
+    border-radius: 5px;
+    height: 458px;
+    position: relative;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-direction: column;
+}
+
+.create > div {
+    height: 40px;
+}
+
+.create > div:first-of-type {
+    margin-top: 66px;
+}
+
+.title {
+    width: 253px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 9px;
+    color: #3F51B5;
+    margin: 0;
+}
+
+.input {
+    border: 0 solid;
+    width: 293px;
+    font-size: 22px;
+    outline: none;
+    border-bottom: 1px solid #3F51B5;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    gap: 10px;
+    width: 100%;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 294px;
+    margin: auto;
+    height: 34px;
+}
+
+.button > span {
+    font-weight: bold;
+}
+
+.label > input {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+}
+
+.button > label {
+    background: transparent;
+    border: 2px solid #00BF82;
+    box-sizing: border-box;
+    border-radius: 5px;
+    color: #00BF82;
+    width: 143px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.controls {
+    display: flex;
+    gap: 46px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 150px;
+}
+
+.control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 143px;
+    height: 54px;
+    background: transparent;
+    outline: none;
+    font-size: 22px;
+    line-height: 26px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.control:first-of-type {
+    border: 2px solid #E53935;
+    color: #E53935;
+}
+
+.control:last-of-type {
+    border: 2px solid #00BF82;
+    color: #00BF82;
+}

@@ -1,7 +1,11 @@
 import { Dispatch } from 'redux';
-import { percent } from '../utills';
+import { getAllWordsAPI, resetWordsAPI, updateStatisticAPI } from '../api';
+import { Word } from '../api/interface';
+import { percent } from '../utills/index';
 
-const CREATE_DATA = 'CREATE_DATA';
+const GET_ALL_WORDS_START = 'GET_ALL_WORDS_START';
+const GET_ALL_WORDS_SUCCESS = 'GET_ALL_WORDS_SUCCESS';
+const GET_ALL_WORDS_FAILURE = 'GET_ALL_WORDS_FAILURE';
 const UPDATE_STATISTICS = 'UPDATE_STATISTICS';
 const SET_SORT_TYPE = 'SET_SORT_TYPE';
 const RESET_WORDS = 'RESET_WORDS';
@@ -10,19 +14,20 @@ export interface StatisticsInterface {
     words: Array<Record<string, string | number>>,
     sortType: string,
     order: string,
-    buttons: Array<string>
+    buttons: Array<string>,
+    loading: boolean,
 }
 
 const initialState = {
   words: [],
-  sortType: 'word',
+  sortType: 'name',
   order: 'ASC',
-  buttons: ['word', 'translation', 'category', 'clicks', 'correct', 'wrong', 'percent'],
+  buttons: ['name', 'translation', 'category', 'clicks', 'correct', 'wrong', 'percent'],
+  loading: false,
 } as StatisticsInterface;
 
-export const statistics = (state = initialState, { type, payload }: Record<string, string>) => {
+const statistics = (state = initialState, { type, payload }: Record<string, string>) => {
   switch (type) {
-    case CREATE_DATA:
     case RESET_WORDS:
     case UPDATE_STATISTICS:
       return { ...state, words: payload };
@@ -31,61 +36,57 @@ export const statistics = (state = initialState, { type, payload }: Record<strin
         return state.order === 'ASC' ? { ...state, order: 'DESC' } : { ...state, order: 'ASC' };
       }
       return { ...state, sortType: payload, order: 'ASC' };
+    case GET_ALL_WORDS_START:
+      return { ...state, loading: true };
+    case GET_ALL_WORDS_SUCCESS:
+      return { ...state, words: payload, loading: false };
+    case GET_ALL_WORDS_FAILURE:
+      return { ...state, loading: false };
     default:
       return state;
   }
 };
 
-export const createData = (data: Record<string, Record<string, Record<string, string | number>>>) => (dispatch: Dispatch) => {
-  let result: Record<string, Record<string, string | number>> = {};
-  if (!localStorage.getItem('statistics')) {
-    const keys = Object.keys(data);
-    keys.forEach((category) => {
-      const words = Object.keys(data[category]);
-      words.forEach((word) => {
-        result[word] = {
-          translation: data[category][word].translate,
-          category,
-          clicks: 0,
-          correct: 0,
-          wrong: 0,
-          percent: 0.00,
-          logo: data[category][word].logo,
-        };
-      });
-    });
-    localStorage.setItem('statistics', JSON.stringify(result));
-  } else {
-    result = JSON.parse(localStorage.getItem('statistics')!);
-  }
+export const getAllWords = () => async (dispatch: Dispatch) => {
   dispatch({
-    type: CREATE_DATA,
-    payload: result,
+    type: GET_ALL_WORDS_START,
   });
+  try {
+    const allWords = await getAllWordsAPI();
+    dispatch({
+      type: GET_ALL_WORDS_SUCCESS,
+      payload: allWords,
+    });
+  } catch (e) {
+    dispatch({
+      type: GET_ALL_WORDS_FAILURE,
+    });
+  }
 };
 
-export const updateStatistics = (type: string, word: string) => (dispatch: Dispatch) => {
-  const statistic = JSON.parse(localStorage.getItem('statistics')!);
-  switch (type) {
-    case 'clicks':
-      statistic[word].clicks += 1;
-      break;
-    case 'correct':
-      statistic[word].correct += 1;
-      statistic[word].percent = percent(statistic[word].correct, statistic[word].wrong);
-      break;
-    case 'wrong':
-      statistic[word].wrong += 1;
-      statistic[word].percent = percent(statistic[word].correct, statistic[word].wrong);
-      break;
-    default:
-      return;
-  }
-  dispatch({
-    type: UPDATE_STATISTICS,
-    payload: statistic,
+export const updateStatistics = (words: Word[], type: string, name: string) => async (dispatch: Dispatch) => {
+  const updatingWords = words.map((item) => {
+    if (item.name === name) {
+      switch (type) {
+        case 'clicks':
+          return { ...item, clicks: item.clicks + 1 };
+        case 'correct':
+          return { ...item, correct: item.correct + 1, percent: percent(item.correct + 1, item.wrong) };
+        case 'wrong':
+          return { ...item, wrong: item.wrong + 1, percent: percent(item.correct, item.wrong + 1) };
+        default:
+          return item;
+      }
+    }
+    return item;
   });
-  localStorage.setItem('statistics', JSON.stringify(statistic));
+  const currentWord = updatingWords.find((word) => word.name === name);
+  if (currentWord) {
+    dispatch({
+      type: UPDATE_STATISTICS,
+      payload: await updateStatisticAPI(currentWord),
+    });
+  }
 };
 
 export const setSortType = (word: string) => (dispatch: Dispatch) => {
@@ -95,27 +96,11 @@ export const setSortType = (word: string) => (dispatch: Dispatch) => {
   });
 };
 
-export const resetWords = () => (dispatch: Dispatch) => {
-  const words = JSON.parse(localStorage.getItem('statistics')!);
-  const arr = Object.keys(words);
-  arr.forEach((item) => {
-    const keys = Object.keys(words[item]);
-    keys.forEach((word) => {
-      switch (word) {
-        case 'clicks':
-        case 'correct':
-        case 'wrong':
-        case 'percent':
-          words[item][word] = 0;
-          break;
-        default:
-          break;
-      }
-    });
-  });
-  localStorage.setItem('statistics', JSON.stringify(words));
+export const resetWords = () => async (dispatch: Dispatch) => {
   dispatch({
     type: RESET_WORDS,
-    payload: words,
+    payload: await resetWordsAPI(),
   });
 };
+
+export default statistics;

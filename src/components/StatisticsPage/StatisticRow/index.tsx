@@ -1,10 +1,10 @@
 import React from 'react';
 
 const StatisticRow = ({
-  word, translation, category, clicks, correct, wrong, percent,
+  name, translation, category, clicks, correct, wrong, percent,
 }: Record<string, string | number>) => (
   <tr>
-    <td>{word}</td>
+    <td>{name}</td>
     <td>{translation}</td>
     <td>{category}</td>
     <td>{clicks}</td>

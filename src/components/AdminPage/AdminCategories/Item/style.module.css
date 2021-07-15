@@ -1,0 +1,58 @@
+.category {
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
+    border-radius: 5px;
+    height: 244px;
+    position: relative;
+}
+
+.delete {
+    position: absolute;
+    top: -5px;
+    right: 3px;
+    cursor: pointer;
+    font-size: 45px;
+    background: transparent;
+    border: 0px solid;
+}
+
+.title {
+    text-align: center;
+    font-size: 22px;
+    margin: 23px 0 0 0;
+    line-height: 36px;
+    text-transform: capitalize;
+    font-weight: bold;
+}
+
+.length {
+    margin: 35px 54px 60px 54px;
+    font-size: 22px;
+    line-height: 26px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.buttons {
+    display: flex;
+    gap: 37px;
+    align-items: center;
+    justify-content: center;
+}
+
+.button {
+    background: transparent;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #00BF82;
+    font-size: 22px;
+    line-height: 26px;
+    cursor: pointer;
+    width: 143px;
+    height: 34.18px;
+    border: 2px solid #00BF82;
+    box-sizing: border-box;
+    border-radius: 5px;
+}

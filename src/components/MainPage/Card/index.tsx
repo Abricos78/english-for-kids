@@ -1,23 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { selectCategory, StateInterface } from '../../../reducers/state';
-import { createData } from '../../../reducers/statistics';
-import { getAllWords, getStatusGame } from '../../../selectors';
+import { selectCategory } from '../../../reducers/categories';
+import { StateInterface } from '../../../reducers/state';
+import { getWords } from '../../../reducers/words';
+import { getStatusGame } from '../../../selectors';
 import style from './style.module.css';
 
 interface MyInterface {
-    category: string,
+    name: string,
     logo: string,
     game: boolean,
     setCategory: Function,
-    create: Function,
-    allWords: Record<string, Record<string, Record<string, string>>>
+    getWordsD: Function,
 }
 
 const MainCard = ({
-  category, logo, game, setCategory, create,
-  allWords,
+  name, logo, game, setCategory, getWordsD,
 }: MyInterface) => {
   const background = {
     background: game ? 'linear-gradient(180deg,#fd6a63,#feb46b 40%,#fff 0,#fff)'
@@ -26,23 +25,26 @@ const MainCard = ({
   return (
     <Link
       style={background}
-      onClick={() => { setCategory(category); create(allWords); }}
-      to={`/category/${category}`}
+      onClick={() => { setCategory(name); getWordsD(name); }}
+      to={`/category/${name}`}
       className={style.card}
     >
-      <img src={logo} alt={category} />
-      {category}
+      <img src={logo} alt={name} />
+      {name}
     </Link>
   );
 };
 
-const mapStateToProps = ({ data }: Record<string, StateInterface>) => ({
+interface Props {
+  data: StateInterface,
+}
+
+const mapStateToProps = ({ data }: Props) => ({
   game: getStatusGame(data),
-  allWords: getAllWords(data),
 });
 const mapDispatchToProps = {
   setCategory: selectCategory,
-  create: createData,
+  getWordsD: getWords,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainCard);

@@ -1,16 +1,27 @@
 import React from 'react';
-import { wordInterface } from '../components/CategoryPage';
 
-export function sound(word: string, event: React.MouseEvent<Element, MouseEvent> | undefined = undefined) {
+import { Word } from '../api/interface';
+
+export function soundPlay(word: string, event: React.MouseEvent<Element, MouseEvent> | undefined = undefined) {
   if (event === undefined) {
-    const audio = new Audio(`${window.location.origin}/english-for-kids/audio/${word}.mp3`);
-    audio.play();
+    if (word.length > 100) {
+      const audio = new Audio(`${word}`);
+      audio.play();
+    } else {
+      const audio = new Audio(`${window.location.origin}/english-for-kids/audio/${word}.mp3`);
+      audio.play();
+    }
   }
   if (event !== undefined) {
     if ((event.target as HTMLElement).getAttribute('data-type') !== 'rotate'
     && (event.target as HTMLElement).getAttribute('data-type') !== 'back') {
-      const audio = new Audio(`${window.location.origin}/english-for-kids/audio/${word}.mp3`);
-      audio.play();
+      if (word.length > 100) {
+        const audio = new Audio(`${word}`);
+        audio.play();
+      } else {
+        const audio = new Audio(`${window.location.origin}/english-for-kids/audio/${word}.mp3`);
+        audio.play();
+      }
     }
   }
 }
@@ -32,12 +43,12 @@ function randomWordOrder(max: number) {
   return order;
 }
 
-export function createRandowWordOrder(words: Array<wordInterface>) {
-  const order = Array.from(randomWordOrder(words.length));
+export function createRandowWordOrder(words: Word[]) {
+  const order = randomWordOrder(words.length);
 
   const result: Array<string> = [];
   order.forEach((num) => {
-    result.push(words[num][0]);
+    result.push(words[num].name);
   });
 
   return result;
@@ -49,4 +60,16 @@ export function percent(correct: number, wrong: number) {
   }
   const sum = correct + wrong;
   return +(wrong / sum).toFixed(2) * 100;
+}
+
+export function encodeImageFileAsURL(element: HTMLInputElement, disp: Function): string | void {
+  if (element.files) {
+    const file = element.files[0];
+    const reader = new FileReader();
+    reader.onloadend = function () {
+      disp(reader.result);
+    };
+    reader.readAsDataURL(file);
+  }
+  return undefined;
 }

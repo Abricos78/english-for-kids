@@ -1,16 +1,18 @@
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import {
-  getAllWords, getCategories, getCurrentCategory, getModal, getStatusGame,
+  getCategories, getCurrentCategory, getModal, getStatusGame,
 } from '../../selectors';
 import {
-  finishGame, selectCategory, showModal, StateInterface, toggleGame,
+  finishGame, showModal, StateInterface, toggleGame,
 } from '../../reducers/state';
 import style from './style.module.css';
-import { createData } from '../../reducers/statistics';
+import { Categories, selectCategory } from '../../reducers/categories';
+import { getWords } from '../../reducers/words';
+import LoginPage from '../LoginPage';
 
-interface MyInterface {
+export interface HeaderInterface {
     game: boolean,
     toggle: Function,
     openModal: Function,
@@ -19,15 +21,14 @@ interface MyInterface {
     currentCategory: string,
     setCategory: Function,
     finish: Function,
-    create: Function,
-    allWords: Record<string, Record<string, Record<string, string>>>
+    getWordsD: Function,
 }
 
 const Header = ({
   game,
   toggle,
-  openModal, modal, categories, currentCategory, setCategory, finish, create, allWords,
-}: MyInterface) => {
+  openModal, modal, categories, currentCategory, setCategory, finish, getWordsD,
+}: HeaderInterface) => {
   const show = `${style.burger} ${style.show}`;
   const background = {
     background: game ? 'linear-gradient(180deg,#fd6a63,#feb46b)' : 'linear-gradient(180deg, #0099ae,#00bf82)',
@@ -40,24 +41,31 @@ const Header = ({
         <div className={style.third} />
       </div>
       <ul style={background} className={modal ? `${style.menu} ${style.show}` : style.menu}>
-        <Link onClick={() => finish()} to="/" className={!currentCategory ? style.active : ''}>main page</Link>
-        {categories.map(({ category }) => (
+        <Link
+          onClick={() => { finish(); setCategory(''); }}
+          to="/"
+          className={!currentCategory ? style.active : ''}
+        >
+          main page
+        </Link>
+        {categories.map(({ name }) => (
           <Link
-            key={category}
-            onClick={() => { setCategory(category); finish(); create(allWords); }}
-            to={`/category/${category}`}
-            className={currentCategory === category ? style.active : ''}
+            key={name}
+            onClick={() => { setCategory(name); finish(); getWordsD(name); }}
+            to={`/category/${name}`}
+            className={currentCategory === name ? style.active : ''}
           >
-            {category}
+            {name}
           </Link>
         ))}
         <Link
-          onClick={() => { setCategory('statistics'); finish(); create(allWords); }}
+          onClick={() => { setCategory('statistics'); finish(); }}
           to="/statistics"
           className={currentCategory === 'statistics' ? style.active : ''}
         >
           statistics page
         </Link>
+        <LoginPage />
       </ul>
       <label htmlFor="button" className={style.button}>
         <input
@@ -74,18 +82,22 @@ const Header = ({
   );
 };
 
-const mapStateToProps = ({ data }: Record<string, StateInterface>) => ({
+interface Props {
+  data: StateInterface,
+  categories: Categories
+}
+
+const mapStateToProps = ({ data, categories }: Props) => ({
   game: getStatusGame(data),
   modal: getModal(data),
-  categories: getCategories(data),
-  currentCategory: getCurrentCategory(data),
-  allWords: getAllWords(data),
+  categories: getCategories(categories),
+  currentCategory: getCurrentCategory(categories),
 });
 const mapDispatchToProps = {
   toggle: toggleGame,
   openModal: showModal,
   setCategory: selectCategory,
   finish: finishGame,
-  create: createData,
+  getWordsD: getWords,
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header as FunctionComponent);

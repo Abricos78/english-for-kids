@@ -1,0 +1,58 @@
+.card {
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
+    border-radius: 5px;
+    height: 458px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.field:first-of-type {
+    margin-top: 23px;
+}
+
+.field {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 13px 0 0 54px;
+    margin-left: 54px;
+}
+
+.field > span {
+    font-weight: normal;
+    margin-left: 5px;
+}
+
+.card > img {
+    border-radius: 18px;
+    width: 253px;
+    height: 170px;
+    margin: 0 auto;
+}
+
+.delete {
+    position: absolute;
+    top: -5px;
+    right: 3px;
+    cursor: pointer;
+    font-size: 45px;
+    background: transparent;
+    border: 0px solid;
+}
+
+.change {
+    width: 252px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #00BF82;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background: transparent;
+    margin: 13px auto 0 auto;
+    font-size: 22px;
+    color: #00BF82;
+    cursor: pointer;
+}

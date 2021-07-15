@@ -85,4 +85,5 @@ tr > td {
     line-height: 1.2em;
     text-align: center;
     vertical-align: middle;
+    text-transform: capitalize;
 }

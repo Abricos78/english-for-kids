@@ -1,0 +1,20 @@
+.loginBtn {
+  width: 248px;
+  height: 60px;
+  margin-top: auto;
+  border: 2px solid #fff;
+  box-sizing: border-box;
+  border-radius: 5px;
+  font-size: 22px;
+  line-height: 25.78px;
+  color: #fff;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  cursor: pointer;
+}
+
+.wrapper {
+  margin-top: auto;
+}

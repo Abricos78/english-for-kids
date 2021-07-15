@@ -1,32 +1,37 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setSortType, StatisticsInterface } from '../../../reducers/statistics';
-import { getOrder, getSortType } from '../../../selectors';
+import { setSortType } from '../../../reducers/statistics';
 import style from './style.module.css';
 
 interface MyInterface {
-    button: string,
+    name: string,
     order: string,
     setType: Function,
     sortType: string
 }
 
 const StatisticHeader = ({
-  button, order, setType, sortType,
+  name, order, setType, sortType,
 }: MyInterface) => {
-  let header = button;
-  if (button === 'percent') {
-    header = '% errors';
+  let header = name;
+  switch (name) {
+    case 'percent':
+      header = '% errors';
+      break;
+    case 'name':
+      header = 'word';
+      break;
+    default:
+      break;
   }
   const text = order === 'ASC' ? `↓ ${header}` : `↑ ${header}`;
   return (
-    <td aria-hidden="true" className={style.sort} onClick={() => setType(button)}>{sortType === button ? text : header}</td>
+    <td aria-hidden="true" className={style.sort} onClick={() => setType(name)}>{sortType === name ? text : header}</td>
   );
 };
 
-const mapStateToProps = ({ statistics }: Record<string, StatisticsInterface>) => ({
-  order: getOrder(statistics),
-  sortType: getSortType(statistics),
+const mapStateToProps = () => ({
+
 });
 const mapDispatchToProps = {
   setType: setSortType,
