@@ -49,7 +49,6 @@ const CategoryPage = ({
       setTimeout(() => { finish(); setCategory(''); }, 3000);
     }
   });
-  console.log(words);
   if (currentCategory === '') {
     return <Redirect from="category/" to="/" />;
   }

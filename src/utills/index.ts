@@ -66,7 +66,7 @@ export function encodeImageFileAsURL(element: HTMLInputElement, disp: Function):
   if (element.files) {
     const file = element.files[0];
     const reader = new FileReader();
-    reader.onloadend = function () {
+    reader.onloadend = () => {
       disp(reader.result);
     };
     reader.readAsDataURL(file);

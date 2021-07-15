@@ -59,7 +59,6 @@ const Card = ({
       aria-hidden="true"
       onClick={game ? (e: React.MouseEvent<Element, MouseEvent>) => startListener(e)
         : (e: React.MouseEvent<Element, MouseEvent>) => {
-          console.log(sound);
           if (sound) {
             soundPlay(sound, e);
           } else {
