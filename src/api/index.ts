@@ -1,6 +1,6 @@
 import { Auth, Category, Word } from './interface';
 
-const url = 'http://localhost:3030/';
+const url = 'https://sheltered-brushlands-58994.herokuapp.com/';
 
 export async function getCategoriesAPI(): Promise<Category[]> {
   const response = await fetch(url);
