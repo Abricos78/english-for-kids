@@ -17,7 +17,7 @@ interface MyInterface {
     name: string,
     game: boolean,
     start: boolean,
-    currentWord: string,
+    currentWord: Word,
     setNextWord: Function,
     setNewRating: Function,
     addMistake: Function,
@@ -34,7 +34,7 @@ const Card = ({
 }: MyInterface) => {
   function checkWord(event: React.MouseEvent<Element, MouseEvent>) {
     if (!(event.target as HTMLElement).classList.contains(style.inactive)) {
-      if (currentWord === name) {
+      if (currentWord.name === name) {
         setNextWord();
         playTechnicalSounds('SUCCESS');
         updateStatistic(words, 'correct', currentWord);
