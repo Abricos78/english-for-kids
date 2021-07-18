@@ -64,9 +64,9 @@ export const getAllWords = () => async (dispatch: Dispatch) => {
   }
 };
 
-export const updateStatistics = (words: Word[], type: string, name: string) => async (dispatch: Dispatch) => {
+export const updateStatistics = (words: Word[], type: string, word: Word) => async (dispatch: Dispatch) => {
   const updatingWords = words.map((item) => {
-    if (item.name === name) {
+    if (item.name === word.name) {
       switch (type) {
         case 'clicks':
           return { ...item, clicks: item.clicks + 1 };
@@ -80,7 +80,7 @@ export const updateStatistics = (words: Word[], type: string, name: string) => a
     }
     return item;
   });
-  const currentWord = updatingWords.find((word) => word.name === name);
+  const currentWord = updatingWords.find((item) => item.name === word.name);
   if (currentWord) {
     dispatch({
       type: UPDATE_STATISTICS,
