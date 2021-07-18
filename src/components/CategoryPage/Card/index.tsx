@@ -8,7 +8,7 @@ import { StatisticsInterface, updateStatistics } from '../../../reducers/statist
 import {
   getCurrentWord, getStart, getStatusGame, getWords,
 } from '../../../selectors';
-import { soundPlay } from '../../../utills/index';
+import { playTechnicalSounds, soundPlay } from '../../../utills/index';
 import style from './style.module.css';
 
 interface MyInterface {
@@ -23,7 +23,7 @@ interface MyInterface {
     addMistake: Function,
     updateStatistic: Function,
     words: Word[],
-    sound: string | undefined
+    sound: string
 }
 
 const Card = ({
@@ -36,15 +36,15 @@ const Card = ({
     if (!(event.target as HTMLElement).classList.contains(style.inactive)) {
       if (currentWord === name) {
         setNextWord();
+        playTechnicalSounds('SUCCESS');
         updateStatistic(words, 'correct', currentWord);
         setNewRating('success');
         (event.target as HTMLElement).classList.add(style.inactive);
-        soundPlay('SUCCESS');
       } else {
         updateStatistic(words, 'wrong', currentWord);
         setNewRating('error');
         addMistake();
-        soundPlay('ERROR');
+        playTechnicalSounds('ERROR');
       }
     }
   }
@@ -59,11 +59,7 @@ const Card = ({
       aria-hidden="true"
       onClick={game ? (e: React.MouseEvent<Element, MouseEvent>) => startListener(e)
         : (e: React.MouseEvent<Element, MouseEvent>) => {
-          if (sound) {
-            soundPlay(sound, e);
-          } else {
-            soundPlay(name, e);
-          }
+          soundPlay(sound, e);
           updateStatistic(words, 'clicks', name);
         }}
       className={style.card}

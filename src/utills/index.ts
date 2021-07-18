@@ -4,26 +4,21 @@ import { Word } from '../api/interface';
 
 export function soundPlay(word: string, event: React.MouseEvent<Element, MouseEvent> | undefined = undefined) {
   if (event === undefined) {
-    if (word.length > 100) {
-      const audio = new Audio(`${word}`);
-      audio.play();
-    } else {
-      const audio = new Audio(`${window.location.origin}/english-for-kids/audio/${word}.mp3`);
-      audio.play();
-    }
+    const audio = new Audio(`${word}`);
+    audio.play();
   }
   if (event !== undefined) {
     if ((event.target as HTMLElement).getAttribute('data-type') !== 'rotate'
     && (event.target as HTMLElement).getAttribute('data-type') !== 'back') {
-      if (word.length > 100) {
-        const audio = new Audio(`${word}`);
-        audio.play();
-      } else {
-        const audio = new Audio(`${window.location.origin}/english-for-kids/audio/${word}.mp3`);
-        audio.play();
-      }
+      const audio = new Audio(`${word}`);
+      audio.play();
     }
   }
+}
+
+export function playTechnicalSounds(name: string) {
+  const audio = new Audio(`${window.location.origin}/english-for-kids/audio/${name}.mp3`);
+  audio.play();
 }
 
 function randomWordOrder(max: number) {
@@ -46,9 +41,9 @@ function randomWordOrder(max: number) {
 export function createRandowWordOrder(words: Word[]) {
   const order = randomWordOrder(words.length);
 
-  const result: Array<string> = [];
+  const result: Word[] = [];
   order.forEach((num) => {
-    result.push(words[num].name);
+    result.push(words[num]);
   });
 
   return result;

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { StateInterface } from '../../../reducers/state';
 import { getAllMistakes } from '../../../selectors';
-import { soundPlay } from '../../../utills/index';
+import { playTechnicalSounds } from '../../../utills/index';
 import style from './style.module.css';
 
 interface MyInterface {
@@ -15,9 +15,9 @@ const WindowAfterGame = ({ allMistakes }: MyInterface) => {
     : 'https://github.com/rolling-scopes-school/tasks/blob/master/tasks/rslang/english-for.kids.data/img/failure.jpg?raw=true';
   useEffect(() => {
     if (allMistakes === 0) {
-      soundPlay('WIN');
+      playTechnicalSounds('WIN');
     } else {
-      soundPlay('LOSE');
+      playTechnicalSounds('LOSE');
     }
   });
   if (!allMistakes) {

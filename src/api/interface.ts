@@ -7,7 +7,7 @@ export interface Word {
     correct: number,
     wrong: number,
     percent: number,
-    sound?: string
+    sound: string
 }
 
 export interface Category {

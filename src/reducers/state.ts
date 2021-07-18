@@ -1,4 +1,5 @@
 import { Dispatch } from 'redux';
+import { Word } from '../api/interface';
 import { soundPlay } from '../utills';
 
 const TOGGLE_GAME = 'TOGGLE_GAME';
@@ -19,8 +20,8 @@ export interface StateInterface {
     showModal: boolean,
     start: boolean,
     finish: boolean,
-    currentWord: string,
-    randomWordOrder: Array<string>,
+    currentWord: Word,
+    randomWordOrder: Word[],
     rating: Array<string>,
     allMistakes: number,
     windowAfterGame: boolean,
@@ -31,7 +32,17 @@ const initialState = {
   showModal: false,
   start: false,
   finish: false,
-  currentWord: '',
+  currentWord: {
+    name: '',
+    translation: '',
+    logo: '',
+    clicks: 0,
+    category: '',
+    correct: 0,
+    wrong: 0,
+    percent: 0,
+    sound: '',
+  },
   randomWordOrder: [],
   rating: [],
   allMistakes: 0,
@@ -39,7 +50,7 @@ const initialState = {
 } as StateInterface;
 
 export const data = (state = initialState, { type, payload }: Record<string, string>) => {
-  const currentNum = state.randomWordOrder.indexOf(state.currentWord);
+  const currentNum = state.randomWordOrder.findIndex((word) => word.name === state.currentWord.name);
   const nextWord = state.randomWordOrder[currentNum + 1];
   switch (type) {
     case TOGGLE_GAME:
@@ -59,7 +70,17 @@ export const data = (state = initialState, { type, payload }: Record<string, str
         finish: true,
         rating: [],
         allMistakes: 0,
-        currentWord: '',
+        currentWord: {
+          name: '',
+          translation: '',
+          logo: '',
+          clicks: 0,
+          category: '',
+          correct: 0,
+          wrong: 0,
+          percent: 0,
+          sound: '',
+        },
         windowAfterGame: false,
         randowWordOrder: [],
       };
@@ -69,10 +90,23 @@ export const data = (state = initialState, { type, payload }: Record<string, str
       return { ...state, currentWord: payload };
     case NEXT_WORD:
       if (nextWord !== undefined) {
-        setTimeout(() => soundPlay(nextWord), 1000);
+        setTimeout(() => soundPlay(nextWord.sound), 1000);
         return { ...state, currentWord: nextWord };
       }
-      return { ...state, currentWord: 'END' };
+      return {
+        ...state,
+        currentWord: {
+          name: 'END',
+          translation: '',
+          logo: '',
+          clicks: 0,
+          category: '',
+          correct: 0,
+          wrong: 0,
+          percent: 0,
+          sound: '',
+        },
+      };
     case CHANGE_RATING:
       return { ...state, rating: [...state.rating, payload] };
     case SET_MISTAKE:
@@ -120,12 +154,12 @@ export const finishGame = () => (dispatch: Dispatch) => {
   });
 };
 
-const setCurrentWord = (word: string) => ({
+const setCurrentWord = (word: Word) => ({
   type: SET_CURRENT_WORD,
   payload: word,
 });
 
-export const setRandomWordOrder = (order: Array<string>) => (dispatch: Dispatch) => {
+export const setRandomWordOrder = (order: Word[]) => (dispatch: Dispatch) => {
   dispatch(setCurrentWord(order[0]));
   dispatch({
     type: SET_RANDOM_WORD_ORDER,

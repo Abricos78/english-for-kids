@@ -41,7 +41,9 @@ const LoginModal = ({
         <button disabled={loading} onClick={() => closeLoginModalD()} type="button" className={style.cancel}>Cancel</button>
         <button
           disabled={loading}
-          onClick={() => checkAdminD(name, password)}
+          onClick={() => {
+            checkAdminD(name, password);
+          }}
           type="button"
           className={style.autorisation}
         >

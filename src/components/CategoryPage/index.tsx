@@ -23,7 +23,7 @@ export interface CategoriesInterface {
     game: boolean,
     start: boolean,
     startBtn: Function,
-    currentWord: string,
+    currentWord: Word,
     currentCategory: string,
     setWordOrder: Function,
     finish: Function,
@@ -44,7 +44,7 @@ const CategoryPage = ({
   currentCategory,
 }: CategoriesInterface) => {
   useEffect(() => {
-    if (currentWord === 'END') {
+    if (currentWord.name === 'END') {
       setTimeout(openWinModal, 1000);
       setTimeout(() => { finish(); setCategory(''); }, 3000);
     }
@@ -68,8 +68,8 @@ const CategoryPage = ({
           <button
             aria-hidden="true"
             type="button"
-            onClick={start ? () => soundPlay(currentWord)
-              : () => { startBtn(); setWordOrder(order); soundPlay(order[0]); }}
+            onClick={start ? () => soundPlay(currentWord.sound)
+              : () => { startBtn(); setWordOrder(order); soundPlay(order[0].sound); }}
             className={start ? `${style.startBtn} ${style.repeat}` : style.startBtn}
           >
             start game
